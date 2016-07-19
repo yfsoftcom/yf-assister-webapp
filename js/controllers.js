@@ -25,6 +25,9 @@ angular.module('app.controllers', ['app.services'])
     .controller('SubscribeCtrl',['$scope',function($scope){
 
     }])
+    .controller('NotificationCtrl',['$scope',function($scope){
+
+    }])
     .controller('SettingCtrl',['$scope',function($scope){
 
     }])

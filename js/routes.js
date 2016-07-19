@@ -48,11 +48,22 @@ angular.module('app.routes', ['ionicUIRouter'])
         }
       })
 
+      //通知
+      .state('tab.notification', {
+          url: '/notification',
+          views: {
+              'notification': {
+                  templateUrl: 'templates/notification/list.html',
+                  controller: 'NotificationCtrl'
+              }
+          }
+      })
+
       //订阅
       .state('tab.subscribe', {
         url: '/subscribe',
         views: {
-          'subscribe': {
+          'notification': {
             templateUrl: 'templates/subscribe/index.html',
             controller: 'SubscribeCtrl'
           }
