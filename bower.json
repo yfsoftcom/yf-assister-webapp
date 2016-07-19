@@ -1,0 +1,21 @@
+{
+  "name": "yf-assister-webapp",
+  "homepage": "https://github.com/yfsoftcom/yf-assister-webapp",
+  "authors": [
+    "yfsoftcn <yfsoftcom@126.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "www/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "aeapi": "*"
+  }
+}
