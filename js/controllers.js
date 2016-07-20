@@ -18,7 +18,21 @@ angular.module('app.controllers', ['app.services'])
 
 
     }])
-    .controller('AppsCtrl',['$scope',function($scope){
+    .controller('AppsCtrl',['$scope','CommonService','AppService',function($scope,CommonService,AppService){
+        //输出用户可以使用的应用列表
+        $scope.doRefresh = function(){
+            AppService.getApps(1)
+                .then(function(data){
+                    $scope.apps = data;
+                })
+                .finally(function(){
+                    $scope.$broadcast('scroll.refreshComplete');
+                });
+        };
+
+        $scope.open = function(url){
+            CommonService.openWebView(url);
+        }
 
     }])
     .controller('PlusCtrl',['$scope',function($scope){

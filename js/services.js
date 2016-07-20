@@ -43,6 +43,22 @@ angular.module('app.services', ['ngApi','ngCordova'])
             }
         }
 }])
+    .service('AppService', ['$ae','$q',function($ae,$q){
+
+        var datas = [
+            {
+                title:'采购端',
+                url:'http://www.baidu.com'
+            }
+        ];
+        return {
+            getApps:function(uid){
+                var q = $q.defer();
+                q.resolve(datas);
+                return q.promise;
+            }
+        }
+    }])
     .service('CommonService',['$q','$ae','$cordovaDevice','$cordovaAppVersion',
         function($q,$ae,$cordovaDevice,$cordovaAppVersion){
             return {
@@ -77,6 +93,7 @@ angular.module('app.services', ['ngApi','ngCordova'])
 
                 },
                 openWebView:function(url){
+                    //非手机环境
                     cordova.ThemeableBrowser.open(url, '_blank', {
                         toolbar: {
                             height: 44,
