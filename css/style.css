@@ -22,3 +22,7 @@ ion-list.manual-list-fullwidth div.list > .item, .list.card.manual-card-fullwidt
     color:#BBBBBB;
     font-size:12px;
 }
+
+.margin-top-0{
+    margin-top:0px;
+}

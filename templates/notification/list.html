@@ -1,18 +1,19 @@
-<ion-view title="通知" class=" ">
+<ion-view title="通知" class=" " ng-init="doRefresh()">
     <ion-nav-buttons side="right">
         <a class="button button-clear button-positive" href="#/tab/subscribe">订阅</a>
     </ion-nav-buttons>
     <ion-content padding="true" class="has-header" scrollbar-y="false" overflow-scroll="false">
-
-        <div class="list card">
-
-            <div class="item">
-                <h2>果然100销售日报 @ 07-19 20:30</h2>
-            </div>
+        <ion-refresher on-refresh="doRefresh()"
+                       spinner="ios-small">
+        </ion-refresher>
+        <div class="list card margin-top-0">
+            <ion-item class="item-divider row">
+                <h2 class="col">果然100销售日报</h2>
+                <p class="col note">10分钟前</p>
+            </ion-item>
 
             <div class="item item-body">
-                <p>进度完成62%！
-                </p>
+                <p>进度完成62%!</p>
             </div>
 
         </div>

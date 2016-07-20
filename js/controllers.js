@@ -45,7 +45,9 @@ angular.module('app.controllers', ['app.services'])
 
     }])
     .controller('NotificationCtrl',['$scope',function($scope){
-
+        $scope.doRefresh = function(){
+            $scope.$broadcast('scroll.refreshComplete');
+        };
     }])
     .controller('SettingCtrl',['$scope','CommonService',function($scope,CommonService){
         $scope.checkUpdate = function(){
