@@ -1,7 +1,15 @@
-angular.module('app.controllers', ['app.services'])
-    .controller('CoreCtrl',['$scope','CommonService',function($scope,CommonService){
+angular.module('app.controllers', ['app.services','JPush'])
+    .controller('CoreCtrl',['$scope','CommonService','$jPush','$state',function($scope,CommonService,$jPush,$state){
         CommonService.ready().then(function(){
             console.log('初始化完毕');
+
+            var notificationCallback = function() {
+                $state.go('notifications');
+            };
+
+            $jPush.init();
+            $jPush.setTagsWithAlias(['logisitic','manager'],'1');
+            document.addEventListener("jpush.openNotification", notificationCallback, false);
         });
     }])
     .controller('DashboardCtrl',['$scope','DashboardService',function($scope,DashboardService){
