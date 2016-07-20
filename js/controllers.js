@@ -41,6 +41,7 @@ angular.module('app.controllers', ['app.services'])
                     if(!confirm('有更新版本,是否前往下载?'))
                         return false;
                     //前往下载
+                    CommonService.openWebView(e.download);
                 });
 
 

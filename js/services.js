@@ -75,7 +75,34 @@ angular.module('app.services', ['ngApi','ngCordova'])
 
                     return q.promise;
 
-                }
+                },
+                openWebView:function(url){
+                    cordova.ThemeableBrowser.open(url, '_blank', {
+                        toolbar: {
+                            height: 44,
+                            color: '#eeeeee'
+                        },
+                        title: {
+                            color: '#000000',
+                            showPageTitle: true
+                        },
+                        backButton: {
+                            wwwImage:'img/back-128.png',
+                            wwwImageDensity:2,
+                            imagePressed: 'back_pressed',
+                            align: 'left',
+                            event: 'backPressed'
+                        },
+                        closeButton: {
+                            wwwImage:'img/close-128.png',
+                            wwwImageDensity:2,
+                            imagePressed: 'close_pressed',
+                            align: 'right',
+                            event: 'closePressed'
+                        },
+                        backButtonCanClose: true
+                    });
+                },
             };
         }])
 ;
