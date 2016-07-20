@@ -5,7 +5,7 @@ angular.module('app.controllers', ['app.services','JPush'])
             var notificationCallback = function() {
                 $state.go('tab.notification');
             };
-            $jPush.init();
+            $jPush.init(notificationCallback);
             //$jPush.setTagsWithAlias(['logisitic','manager'],'1');
             document.addEventListener("jpush.openNotification", notificationCallback, false);
         });
