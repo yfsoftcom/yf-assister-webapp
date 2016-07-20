@@ -2,13 +2,11 @@ angular.module('app.controllers', ['app.services','JPush'])
     .controller('CoreCtrl',['$scope','CommonService','$jPush','$state',function($scope,CommonService,$jPush,$state){
         CommonService.ready().then(function(){
             console.log('初始化完毕');
-
             var notificationCallback = function() {
                 $state.go('tab.notification');
             };
-
             $jPush.init();
-            $jPush.setTagsWithAlias(['logisitic','manager'],'1');
+            //$jPush.setTagsWithAlias(['logisitic','manager'],'1');
             document.addEventListener("jpush.openNotification", notificationCallback, false);
         });
     }])
