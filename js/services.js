@@ -48,7 +48,7 @@ angular.module('app.services', ['ngApi','ngCordova'])
         var datas = [
             {
                 title:'采购端',
-                url:'http://www.baidu.com'
+                url:'http://erp.guoran100.com/index.php?s=/caigou/index/index.html'
             }
         ];
         return {
