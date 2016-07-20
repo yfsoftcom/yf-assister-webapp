@@ -57,7 +57,7 @@ gulp.task('copy-vender',function(){
         './vender/js-md5/build/md5.min.js',
         //'./vender/async/dist/async.min.js',
         //'./vender/ionic-platform-web-client/dist/ionic.io.bundle.min.js',
-        //'./vender/ngCordova/dist/ng-cordova.min.js',
+        './vender/ngCordova/dist/ng-cordova.min.js',
         './vender/aeapi/ae.min.js'])
         .pipe(gulp.dest('./dist/js'));
 });

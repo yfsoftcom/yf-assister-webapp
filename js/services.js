@@ -1,5 +1,5 @@
 "use strict";
-angular.module('app.services', ['ngApi'])
+angular.module('app.services', ['ngApi','ngCordova'])
 
 .service('DashboardService', ['$ae','$q',function($ae,$q){
 
@@ -43,5 +43,40 @@ angular.module('app.services', ['ngApi'])
             }
         }
 }])
+    .service('CommonService',['$q','$ae','$cordovaDevice','$cordovaAppVersion',
+        function($q,$ae,$cordovaDevice,$cordovaAppVersion){
+            return {
+                ready:function(){
+                    var q = $q.defer();
+                    $ae.init({mode:'PRODUCT',appkey:'45883198abcdc110',masterKey:'1b7e5703602b6fce1cae7364ac0f2249'});
+                    q.resolve();
+                    return q.promise;
+                },
+                checkUpdate:function(appName){
+                    appName = appName || 'DemoApp';
+                    var q = $q.defer();
+                    var platform = $cordovaDevice.getPlatform();
+                    var checkCallback = function(build){
+                        var func = new $ae.Function('api.version.check');
+                        var args = {app:appName,device:platform.toLowerCase(),version:build};
+                        func.invoke(args).then(function(d){
+                            q.resolve(d);
+                        }).catch(function (e) {
+                            //包含version和download
+                            e.download= e.error.download;
+                            q.reject(e);
+                        });
+                    };
+                    if('iOS' == platform){
+                        $cordovaAppVersion.getVersionCode().then(checkCallback);
+                    }else{
+                        $cordovaAppVersion.getVersionNumber().then(checkCallback);
+                    }
+
+                    return q.promise;
+
+                }
+            };
+        }])
 ;
 

@@ -9,7 +9,9 @@ bower install aeapi --save
 `
 
 #### Step 1.2:
-
+`
+bower install ngCordova --save
+`
 
 ### Step 2: init npm
 `

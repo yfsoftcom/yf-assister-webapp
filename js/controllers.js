@@ -1,6 +1,8 @@
 angular.module('app.controllers', ['app.services'])
-    .controller('CoreCtrl',['$scope',function($scope){
-
+    .controller('CoreCtrl',['$scope','CommonService',function($scope,CommonService){
+        CommonService.ready().then(function(){
+            console.log('初始化完毕');
+        });
     }])
     .controller('DashboardCtrl',['$scope','DashboardService',function($scope,DashboardService){
 
@@ -28,8 +30,21 @@ angular.module('app.controllers', ['app.services'])
     .controller('NotificationCtrl',['$scope',function($scope){
 
     }])
-    .controller('SettingCtrl',['$scope',function($scope){
+    .controller('SettingCtrl',['$scope','CommonService',function($scope,CommonService){
+        $scope.checkUpdate = function(){
+            CommonService.checkUpdate('EXPAPP')
+                .then(function(){
+                    alert('已是最新版~无需更新');
+                })
+                .catch(function(e){
+                    //有更新
+                    if(!confirm('有更新版本,是否前往下载?'))
+                        return false;
+                    //前往下载
+                });
 
+
+        }
     }])
 
 ;
