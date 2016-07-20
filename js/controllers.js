@@ -9,7 +9,10 @@ angular.module('app.controllers', ['app.services'])
         $scope.doRefresh = function(){
             DashboardService.getData(1)
                 .then(function(data){
+                    console.log(data);
                     $scope.datas = data;
+                }).catch(function(err){
+                    console.log(err);
                 })
                 .finally(function(){
                     $scope.$broadcast('scroll.refreshComplete');
