@@ -20,4 +20,6 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
       StatusBar.styleDefault();
     }
   });
-})
+}).config(function($ionicConfigProvider){
+      $ionicConfigProvider.platform.android.tabs.position('bottom');
+    });
