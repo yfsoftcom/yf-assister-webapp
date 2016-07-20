@@ -16,3 +16,9 @@ ion-list.manual-list-fullwidth div.list > .item, .list.card.manual-card-fullwidt
     border-left:0px;
     border-right: 0px;
 }
+
+.item-divider>p.note{
+    text-align:right;
+    color:#BBBBBB;
+    font-size:12px;
+}

@@ -3,12 +3,11 @@
         <ion-refresher on-refresh="doRefresh()"
                 spinner="ios-small">
         </ion-refresher>
-        <p style="color:#BBBBBB;font-size:12px;" class=" ">数据更新时间：{{(datas.lastUpdateAt * 1000) | date:'yyyy-MM-dd HH:mm:ss'}}</p>
         <div class="list card manual-card-fullwidth ">
-            <div ng-repeat="data in datas.datas">
-                <ion-item class="item-divider">{{data.title}}</ion-item>
+            <div ng-repeat="data in datas">
+                <ion-item class="item-divider row"><h2 class="col">{{data.title}} </h2><p class="col note">更新于:{{(data.lastUpdateAt * 1000) | date:'yyyy-MM-dd HH:mm:ss'}}</p></ion-item>
                 <ion-item ng-repeat="d in data.datas" class="  ">
-                    {{d.title}}<span class="item-note">{{d.val}}</span>
+                {{d.title}}<span class="item-note">{{d.val}}</span>
                 </ion-item>
             </div>
         </div>

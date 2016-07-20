@@ -5,7 +5,7 @@ angular.module('app.services', ['ngApi','ngCordova'])
         return {
             getData:function(uid){
                 var q = $q.defer();
-                var func = new $ae.Function('api.report.logistics');
+                var func = new $ae.Function('api.assister.protal');
                 func.invoke({}).then(function(datas){
                     q.resolve(datas);
                 }).catch(function(err){
