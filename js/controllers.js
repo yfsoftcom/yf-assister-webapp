@@ -9,6 +9,10 @@ angular.module('app.controllers', ['app.services','JPush'])
             //$jPush.setTagsWithAlias(['logisitic','manager'],'1');
             document.addEventListener("jpush.openNotification", notificationCallback, false);
         });
+
+        $scope.open = function(url){
+            CommonService.openWebView(url);
+        }
     }])
     .controller('DashboardCtrl',['$scope','DashboardService',function($scope,DashboardService){
 
@@ -38,11 +42,6 @@ angular.module('app.controllers', ['app.services','JPush'])
                     $scope.$broadcast('scroll.refreshComplete');
                 });
         };
-
-        $scope.open = function(url){
-            CommonService.openWebView(url);
-        }
-
     }])
     .controller('PlusCtrl',['$scope',function($scope){
 
@@ -50,9 +49,15 @@ angular.module('app.controllers', ['app.services','JPush'])
     .controller('SubscribeCtrl',['$scope',function($scope){
 
     }])
-    .controller('NotificationCtrl',['$scope',function($scope){
+    .controller('NotificationCtrl',['$scope','NotificationService',function($scope,NotificationService){
         $scope.doRefresh = function(){
-            $scope.$broadcast('scroll.refreshComplete');
+            NotificationService.getMessages(1)
+                .then(function(datas){
+                    $scope.datas = datas;
+                })
+                .finally(function(){
+                    $scope.$broadcast('scroll.refreshComplete');
+                });
         };
     }])
     .controller('SettingCtrl',['$scope','CommonService',function($scope,CommonService){

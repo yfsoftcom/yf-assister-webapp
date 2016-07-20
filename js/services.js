@@ -30,6 +30,38 @@ angular.module('app.services', ['ngApi','ngCordova'])
             }
         }
     }])
+    .service('NotificationService',['$q','$ae',function($q,$ae){
+
+        var datas = [
+            {
+                channel:'果然100销售',
+                publishAt:1446215421,
+                content:'进度完成101%！',
+                url:'http://www.baidu.com'
+            },
+            {
+                channel:'世果销售',
+                publishAt:1446215421,
+                content:'进度完成121%！',
+                url:'http://www.fir.im'
+            },
+            {
+                channel:'果饮店销售',
+                publishAt:1446215421,
+                content:'进度完成141%！',
+                url:'http://www.guoran100.com'
+            }
+        ];
+
+        return {
+            getMessages : function(uid){
+                var q = $q.defer();
+                q.resolve(datas);
+                return q.promise;
+
+            }
+        }
+    }])
     .service('CommonService',['$q','$ae','$cordovaDevice','$cordovaAppVersion',
         function($q,$ae,$cordovaDevice,$cordovaAppVersion){
             return {
