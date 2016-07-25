@@ -14,7 +14,7 @@ angular.module('app.controllers', ['app.services','JPush'])
             CommonService.openWebView(url);
         }
     }])
-    .controller('DashboardCtrl',['$scope','DashboardService',function($scope,DashboardService){
+    .controller('DashboardCtrl',['$scope','$ionicPopup','DashboardService',function($scope,$ionicPopup,DashboardService){
 
         $scope.doRefresh = function(){
             DashboardService.getData(1)
@@ -28,6 +28,28 @@ angular.module('app.controllers', ['app.services','JPush'])
                     $scope.$broadcast('scroll.refreshComplete');
                 });
         };
+
+        $scope.showDetail = function(d){
+          if(d === undefined){
+            return;
+          }
+          d = d[0];
+          // 一个提示对话框
+          var str = '';
+          for(var i in d.datas){
+            var _d = d.datas[i];
+            str += '<div class="row">';
+            str += '<div class="col"><b>' + _d.title + '</b></div>';
+            str += '<div class="col">' + _d.val + '</div>';
+            str += '</div>';
+          }
+          //
+          $ionicPopup.alert({
+               title: d.title,
+               template: str
+            });
+
+        }
 
 
     }])
