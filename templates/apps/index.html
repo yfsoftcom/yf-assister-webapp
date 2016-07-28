@@ -4,8 +4,8 @@
                        spinner="ios-small">
         </ion-refresher>
         <ion-list class=" manual-list-fullwidth ">
-            <ion-item class="item-icon-right  " ng-repeat="app in apps" ng-click="open(app.url)">
-                {{app.title}}
+            <ion-item class="item-icon-right  " ng-repeat="app in apps" ng-click="open(app.appurl)">
+                {{app.appname}}
                 <i class="icon ion-ios-arrow-right icon-accessory"></i>
             </ion-item>
         </ion-list>

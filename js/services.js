@@ -16,16 +16,15 @@ angular.module('app.services', ['ngApi','ngCordova'])
         }
 }])
     .service('AppService', ['$ae','$q',function($ae,$q){
-        var datas = [
-            {
-                title:'采购端',
-                url:'http://erp.guoran100.com/index.php?s=/caigou/index/index.html'
-            }
-        ];
         return {
             getApps:function(uid){
                 var q = $q.defer();
-                q.resolve(datas);
+                var func = new $ae.Function('api.assister.apps');
+                func.invoke({}).then(function(datas){
+                    q.resolve(datas);
+                }).catch(function(err){
+                    q.reject(err);
+                });
                 return q.promise;
             }
         }
@@ -126,4 +125,3 @@ angular.module('app.services', ['ngApi','ngCordova'])
             };
         }])
 ;
-
