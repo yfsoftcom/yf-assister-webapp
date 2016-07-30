@@ -126,7 +126,7 @@ angular.module('app.services', ['ngApi','ngCordova'])
                 openWebView:function(url,target){
                     //非手机环境
                     target = target || CONST_BROWSER_TARGET;
-                    cordova.ThemeableBrowser.open(url, '_blank', CONST_BROWSER_OPTIONS);
+                    cordova.ThemeableBrowser.open(url, target, CONST_BROWSER_OPTIONS);
                 },
             };
         }])
