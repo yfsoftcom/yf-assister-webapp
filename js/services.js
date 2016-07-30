@@ -63,10 +63,43 @@ angular.module('app.services', ['ngApi','ngCordova'])
     }])
     .service('CommonService',['$q','$ae','$cordovaDevice','$cordovaAppVersion',
         function($q,$ae,$cordovaDevice,$cordovaAppVersion){
+
+          /******************* CONST VAR DEFINED ****************************/
+          var CONST_BROWSER_OPTIONS = {
+              toolbar: {
+                  height: 44,
+                  color: '#eeeeee'
+              },
+              title: {
+                  color: '#000000',
+                  showPageTitle: true
+              },
+              backButton: {
+                  wwwImage:'img/back-128.png',
+                  wwwImageDensity:2,
+                  imagePressed: 'back_pressed',
+                  align: 'left',
+                  event: 'backPressed'
+              },
+              closeButton: {
+                  wwwImage:'img/close-128.png',
+                  wwwImageDensity:2,
+                  imagePressed: 'close_pressed',
+                  align: 'right',
+                  event: 'closePressed'
+              },
+              backButtonCanClose: true
+          };
+          var CONST_BROWSER_TARGET = '_blank';
+
+          var CONST_APP_KEYS = {mode:'PRODUCT',appkey:'45883198abcdc110',masterKey:'1b7e5703602b6fce1cae7364ac0f2249'};//product
+
+          /******************* VAR DEFINED ****************************/
+
             return {
                 ready:function(){
                     var q = $q.defer();
-                    $ae.init({mode:'PRODUCT',appkey:'45883198abcdc110',masterKey:'1b7e5703602b6fce1cae7364ac0f2249'});
+                    $ae.init(CONST_APP_KEYS);
                     q.resolve();
                     return q.promise;
                 },
@@ -90,33 +123,10 @@ angular.module('app.services', ['ngApi','ngCordova'])
                     return q.promise;
 
                 },
-                openWebView:function(url){
+                openWebView:function(url,target){
                     //非手机环境
-                    cordova.ThemeableBrowser.open(url, '_blank', {
-                        toolbar: {
-                            height: 44,
-                            color: '#eeeeee'
-                        },
-                        title: {
-                            color: '#000000',
-                            showPageTitle: true
-                        },
-                        backButton: {
-                            wwwImage:'img/back-128.png',
-                            wwwImageDensity:2,
-                            imagePressed: 'back_pressed',
-                            align: 'left',
-                            event: 'backPressed'
-                        },
-                        closeButton: {
-                            wwwImage:'img/close-128.png',
-                            wwwImageDensity:2,
-                            imagePressed: 'close_pressed',
-                            align: 'right',
-                            event: 'closePressed'
-                        },
-                        backButtonCanClose: true
-                    });
+                    target = target || CONST_BROWSER_TARGET;
+                    cordova.ThemeableBrowser.open(url, '_blank', CONST_BROWSER_OPTIONS);
                 },
             };
         }])

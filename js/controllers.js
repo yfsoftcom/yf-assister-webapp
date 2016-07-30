@@ -93,7 +93,7 @@ angular.module('app.controllers', ['app.services','JPush'])
                     if(!confirm('有更新版本,是否前往下载?'))
                         return false;
                     //前往下载
-                    CommonService.openWebView(e.download);
+                    CommonService.openWebView(e.download,'_system');
                 });
 
 
