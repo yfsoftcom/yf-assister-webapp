@@ -84,7 +84,7 @@ angular.module('app.controllers', ['app.services','JPush'])
     }])
     .controller('SettingCtrl',['$scope','CommonService',function($scope,CommonService){
         $scope.checkUpdate = function(){
-            CommonService.checkUpdate('AssisterApp')
+            CommonService.checkUpdate('果然助理')
                 .then(function(){
                     alert('已是最新版~无需更新');
                 })

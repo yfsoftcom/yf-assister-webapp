@@ -85,11 +85,7 @@ angular.module('app.services', ['ngApi','ngCordova'])
                             q.reject(e);
                         });
                     };
-                    if('iOS' == platform){
-                        $cordovaAppVersion.getVersionCode().then(checkCallback);
-                    }else{
-                        $cordovaAppVersion.getVersionNumber().then(checkCallback);
-                    }
+                    $cordovaAppVersion.getVersionCode().then(checkCallback);
 
                     return q.promise;
 
