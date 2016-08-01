@@ -14,9 +14,10 @@ angular.module('app.controllers', ['app.services','JPush'])
             CommonService.openWebView(url);
         }
     }])
-    .controller('DashboardCtrl',['$scope','$ionicPopup','DashboardService',function($scope,$ionicPopup,DashboardService){
+    .controller('DashboardCtrl',['$scope','$ionicPopup','$ionicLoading','DashboardService',function($scope,$ionicPopup,$ionicLoading,DashboardService){
 
         $scope.doRefresh = function(){
+          $ionicLoading.show({template: '客官别急,小的正在拼命加载数据...'});
             DashboardService.getData(1)
                 .then(function(data){
                     console.log(data);
@@ -26,6 +27,7 @@ angular.module('app.controllers', ['app.services','JPush'])
                 })
                 .finally(function(){
                     $scope.$broadcast('scroll.refreshComplete');
+                    $ionicLoading.hide();
                 });
         };
 
@@ -51,6 +53,31 @@ angular.module('app.controllers', ['app.services','JPush'])
 
         }
 
+
+    }])
+    .controller('MonthProtalCtrl',['$scope','$ionicPopup','$ionicLoading','DashboardService',function($scope,$ionicPopup,$ionicLoading,DashboardService){
+
+      //月报控制器
+      $scope.doRefresh = function(){
+        $ionicLoading.show({template: '客官别急,小的正在拼命加载数据...'});
+          DashboardService.getMonthData(1,7)
+              .then(function(data){
+                  console.log(data);
+                  $scope.datas = data;
+              }).catch(function(err){
+                  console.log(err);
+              })
+              .finally(function(){
+                  $scope.$broadcast('scroll.refreshComplete');
+                  $ionicLoading.hide();
+              });
+      };
+      $scope.more = function(){
+        $ionicPopup.alert({
+             title: '啊喔',
+             template: '<p>Sorry啦~这里还不能点~</p>'
+          });
+      };
 
     }])
     .controller('AppsCtrl',['$scope','CommonService','AppService',function($scope,CommonService,AppService){

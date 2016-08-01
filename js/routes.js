@@ -25,8 +25,17 @@ angular.module('app.routes', ['ionicUIRouter'])
           }
         }
       })
-
-      //应用
+      // 看板月报
+      .state('tab.monthProtal', {
+        url: '/monthProtal',
+        views: {
+          'dashboard': {
+            templateUrl: 'templates/dashboard/month-protal.html',
+            controller: 'MonthProtalCtrl'
+          }
+        }
+      })
+      // 应用
       .state('tab.apps', {
         url: '/apps',
         views: {

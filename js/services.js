@@ -12,6 +12,16 @@ angular.module('app.services', ['ngApi','ngCordova'])
                     q.reject(err);
                 });
                 return q.promise;
+            },
+            getMonthData:function(uid,month){
+              var q = $q.defer();
+              var func = new $ae.Function('api.assister.month');
+              func.invoke({month:month,uid:uid}).then(function(datas){
+                  q.resolve(datas);
+              }).catch(function(err){
+                  q.reject(err);
+              });
+              return q.promise;
             }
         }
 }])
