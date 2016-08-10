@@ -5,20 +5,8 @@ angular.module('app.controllers', ['app.services','JPush'])
             var notificationCallback = function() {
                 $state.go('tab.notification');
             };
-            $jPush.init(notificationCallback);
-            $jPush.setAlias('mmm');
-            JPushPlugin.prototype.setTagsWithAlias(tags, alias)
-            document.addEventListener("jpush.setAlias", function(event){
-                alert(event.alias);
-                console.log("===============");
-                console.log("===============");
-                console.log(event.alias);
-                console.log("===============");
-                console.log("===============");
-                console.log("===============");
-                console.log("===============");
-                console.log("===============");
-            }, false);
+            $jPush.init();
+            $jPush.setTagsWithAlias(['aa'],'1');
             document.addEventListener("jpush.openNotification", notificationCallback, false);
         });
 

@@ -1,34 +1,43 @@
 "use strict";
 angular.module('JPush', []).service('$jPush',[function() {
 
-    var onGetRegistrationID = function(data) {
-        try {
-            console.log("JPushPlugin:registrationID is " + data);
+    var _service = {};
+
+    _service.getRegistrationID = function(){
+      _service.push.getRegistrationID(function(data) {
+          try {
             alert(data);
-        } catch (exception) {
+          } catch (exception) {
+            alert(exception);
+          }
+      });
+    };
+
+
+    _service.init = function(){
+      if(!_service.push){
+        _service.push = window.plugins.jPushPlugin;
+      }
+      try {
+          _service.push.init();
+          _service.getRegistrationID();
+          if (device.platform != "Android") {
+              _service.push.setDebugModeFromIos();
+              _service.push.setApplicationIconBadgeNumber(0);
+          } else {
+              _service.push.setDebugMode(true);
+              _service.push.setStatisticsOpen(true);
+          }
+      } catch (exception) {
         alert(exception);
-            console.log(exception);
-        }
+      }
+
     };
-    var getRegistrationID = function() {
-        window.plugins.jPushPlugin.getRegistrationID(onGetRegistrationID);
-    };
-    return {
-        init: function() {
-            try {
-                window.plugins.jPushPlugin.init();
-                getRegistrationID();
-                if (device.platform != "Android") {
-                    window.plugins.jPushPlugin.setDebugModeFromIos();
-                    window.plugins.jPushPlugin.setApplicationIconBadgeNumber(0);
-                } else {
-                    window.plugins.jPushPlugin.setDebugMode(true);
-                    window.plugins.jPushPlugin.setStatisticsOpen(true);
-                }
-            } catch (exception) {
-              alert(exception);
-                console.log(exception);
-            }
-        }
-    };
+
+    _service.setTagsWithAlias = function(tags,alias){
+      _service.push.setTagsWithAlias(tags, alias);
+    }
+
+
+    return _service;
 }]);
