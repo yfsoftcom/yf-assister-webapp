@@ -1,12 +1,22 @@
-<ion-view title="订阅" class=" ">
+<ion-view title="订阅" class=" " ng-init="doRefresh()">
     <ion-content padding="true" class="has-header" scrollbar-y="false" overflow-scroll="false">
         <ion-list class=" manual-list-fullwidth ">
-            <ion-toggle toggle-class="toggle-positive" ng-checked="true" class=" ">果然销售</ion-toggle>
+            <!--<ion-toggle toggle-class="toggle-positive" ng-checked="true" class=" ">果然销售</ion-toggle>
             <ion-toggle toggle-class="toggle-positive" class=" ">世果销售</ion-toggle>
             <ion-toggle toggle-class="toggle-positive" class=" ">果饮店销售</ion-toggle>
             <ion-toggle toggle-class="toggle-positive" ng-checked="true" class=" ">库存预警</ion-toggle>
             <ion-toggle toggle-class="toggle-positive" ng-checked="true" class=" ">物流指标</ion-toggle>
-            <ion-toggle toggle-class="toggle-positive" class=" ">采购通知</ion-toggle>
+            <ion-toggle toggle-class="toggle-positive" class=" ">采购通知</ion-toggle>-->
+            <ion-toggle
+                    ng-repeat="data in subcriptions"
+                    toggle-class="toggle-positive"
+                    class=" "
+                    ng-checked="data.checked"
+                    ng-change="subscribe_change(data.id,data.checked)"
+                    ng-model="data.checked"
+                    >
+                {{data.title}}
+            </ion-toggle>
         </ion-list>
     </ion-content>
 </ion-view>

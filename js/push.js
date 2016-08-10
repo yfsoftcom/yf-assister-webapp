@@ -1,5 +1,5 @@
 "use strict";
-angular.module('JPush', []).service('$jPush',[ function() {
+angular.module('JPush', []).service('$jPush',[function() {
     var push;
     return {
         setBadge: function(badge) {
@@ -32,7 +32,7 @@ angular.module('JPush', []).service('$jPush',[ function() {
             push = window.plugins && window.plugins.jPushPlugin;
             if (push) {
                 plugins.jPushPlugin.init();
-                plugins.jPushPlugin.setDebugMode(false);
+                plugins.jPushPlugin.setDebugMode(true);
                 plugins.jPushPlugin.openNotificationInAndroidCallback = notificationCallback;
                 //plugins.jPushPlugin.openNotificationIniOSCallback = notificationCallback;
                 //document.addEventListener("jpush.openNotification", onOpenNotification, false);

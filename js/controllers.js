@@ -6,7 +6,20 @@ angular.module('app.controllers', ['app.services','JPush'])
                 $state.go('tab.notification');
             };
             $jPush.init(notificationCallback);
-            //$jPush.setTagsWithAlias(['logisitic','manager'],'1');
+            $jPush.setAlias('mmm');
+            document.addEventListener("jpush.setAlias", function(event){
+                alert(event.alias);
+                alert(2222);
+                console.log("===============");
+                console.log("===============");
+                console.log(event.alias);
+                console.log("===============");
+                console.log("===============");
+                console.log("===============");
+                console.log("===============");
+                console.log("===============");
+            }, false);
+            alert(456);
             document.addEventListener("jpush.openNotification", notificationCallback, false);
         });
 
@@ -46,8 +59,22 @@ angular.module('app.controllers', ['app.services','JPush'])
     .controller('PlusCtrl',['$scope',function($scope){
 
     }])
-    .controller('SubscribeCtrl',['$scope',function($scope){
-
+    .controller('SubscribeCtrl',['$scope','SubscribeService',function($scope,SubscribeService){
+        $scope.subcriptions = [] ;
+        $scope.doRefresh = function(){
+            SubscribeService.getSubscriptions(1)
+                .then(function(datas){
+                    console.log(datas);
+                    $scope.subcriptions = datas;
+                })
+                .finally(function(){
+                    $scope.$broadcast('scroll.refreshComplete');
+                });
+        };
+        $scope.subscribe_change = function(id,checked){
+            //更新订阅内容
+            SubscribeService.updateUserSubcriptions(1,id);
+        };
     }])
     .controller('NotificationCtrl',['$scope','NotificationService',function($scope,NotificationService){
         $scope.doRefresh = function(){

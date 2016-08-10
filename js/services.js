@@ -32,7 +32,7 @@ angular.module('app.services', ['ngApi','ngCordova'])
     }])
     .service('NotificationService',['$q','$ae',function($q,$ae){
 
-        var datas = [
+        var datas1 = [
             {
                 channel:'果然100销售',
                 publishAt:1446215421,
@@ -55,10 +55,41 @@ angular.module('app.services', ['ngApi','ngCordova'])
 
         return {
             getMessages : function(uid){
+                console.log(uid);
                 var q = $q.defer();
-                q.resolve(datas);
+                var func = new $ae.Function('api.assister.getMessages');
+                func.invoke({uid:uid}).then(function(datas){
+                    q.resolve(datas);
+                }).catch(function(err){
+                    q.reject(err);
+                });
                 return q.promise;
 
+            }
+        }
+    }])
+    .service('SubscribeService',['$q','$ae',function($q,$ae){
+        return {
+            getSubscriptions : function(uid){
+                var q = $q.defer();
+                var func = new $ae.Function('api.assister.getSubscriptions');
+                func.invoke({uid:uid}).then(function(datas){
+                    q.resolve(datas);
+                }).catch(function(err){
+                    q.reject(err);
+                });
+                return q.promise;
+
+            },
+            updateUserSubcriptions:function(uid,subscribe){
+                var q = $q.defer();
+                var func = new $ae.Function('api.assister.updateUserSubscriptions');
+                func.invoke({uid:uid,subscribe:subscribe}).then(function(datas){
+                    q.resolve(datas);
+                }).catch(function(err){
+                    q.reject(err);
+                });
+                return q.promise;
             }
         }
     }])
@@ -67,7 +98,8 @@ angular.module('app.services', ['ngApi','ngCordova'])
             return {
                 ready:function(){
                     var q = $q.defer();
-                    $ae.init({mode:'PRODUCT',appkey:'45883198abcdc110',masterKey:'1b7e5703602b6fce1cae7364ac0f2249'});
+                    //$ae.init({mode:'PRODUCT',appkey:'45883198abcdc110',masterKey:'1b7e5703602b6fce1cae7364ac0f2249'});
+                    $ae.init({mode:'DEV',appkey:'609388a15b3dfaca',masterKey:'1292b2d414d45c8f97d44354de24c40c'});
                     q.resolve();
                     return q.promise;
                 },
