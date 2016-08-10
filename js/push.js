@@ -1,41 +1,33 @@
 "use strict";
 angular.module('JPush', []).service('$jPush',[function() {
-    var push;
+
+    var onGetRegistrationID = function(data) {
+        try {
+            console.log("JPushPlugin:registrationID is " + data);
+            alert(data);
+        } catch (exception) {
+        alert(exception);
+            console.log(exception);
+        }
+    };
+    var getRegistrationID = function() {
+        window.plugins.jPushPlugin.getRegistrationID(onGetRegistrationID);
+    };
     return {
-        setBadge: function(badge) {
-            if (push) {
-                plugins.jPushPlugin.setBadge(badge);
-            }
-        },
-        setAlias: function(alias) {
-            if (push) {
-                plugins.jPushPlugin.setAlias(alias);
-            }
-        },
-        setTags:function(tags){
-            if(push){
-                plugins.jPushPlugin.setTags(tags);
-            }
-        },
-        setTagsWithAlias:function(tags,alias){
-            if(push){
-                plugins.jPushPlugin.setTagsWithAlias(tags,alias);
-            }
-        },
-        check: function() {
-            if (window.jpush && push) {
-                plugins.jPushPlugin.receiveNotificationIniOSCallback(window.jpush);
-                window.jpush = null;
-            }
-        },
-        init: function(notificationCallback) {
-            push = window.plugins && window.plugins.jPushPlugin;
-            if (push) {
-                plugins.jPushPlugin.init();
-                plugins.jPushPlugin.setDebugMode(true);
-                plugins.jPushPlugin.openNotificationInAndroidCallback = notificationCallback;
-                //plugins.jPushPlugin.openNotificationIniOSCallback = notificationCallback;
-                //document.addEventListener("jpush.openNotification", onOpenNotification, false);
+        init: function() {
+            try {
+                window.plugins.jPushPlugin.init();
+                getRegistrationID();
+                if (device.platform != "Android") {
+                    window.plugins.jPushPlugin.setDebugModeFromIos();
+                    window.plugins.jPushPlugin.setApplicationIconBadgeNumber(0);
+                } else {
+                    window.plugins.jPushPlugin.setDebugMode(true);
+                    window.plugins.jPushPlugin.setStatisticsOpen(true);
+                }
+            } catch (exception) {
+              alert(exception);
+                console.log(exception);
             }
         }
     };

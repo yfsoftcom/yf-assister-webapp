@@ -7,6 +7,7 @@ angular.module('app.controllers', ['app.services','JPush'])
             };
             $jPush.init(notificationCallback);
             $jPush.setAlias('mmm');
+            JPushPlugin.prototype.setTagsWithAlias(tags, alias)
             document.addEventListener("jpush.setAlias", function(event){
                 alert(event.alias);
                 console.log("===============");

@@ -102,8 +102,8 @@ angular.module('app.services', ['ngApi','ngCordova'])
             }
         }
     }])
-    .service('CommonService',['$q','$ae','$cordovaDevice','$cordovaAppVersion',
-        function($q,$ae,$cordovaDevice,$cordovaAppVersion){
+    .service('CommonService',['$q','$ae','$ionicPlatform','$cordovaDevice','$cordovaAppVersion',
+        function($q,$ae,$ionicPlatform,$cordovaDevice,$cordovaAppVersion){
           /******************* CONST VAR DEFINED ****************************/
           var CONST_BROWSER_OPTIONS = {
               toolbar: {
@@ -140,7 +140,10 @@ angular.module('app.services', ['ngApi','ngCordova'])
                 ready:function(){
                     var q = $q.defer();
                     $ae.init(CONST_APP_KEYS);
-                    q.resolve();
+                    //等待设备加载
+                    $ionicPlatform.ready(function(){
+                      q.resolve();
+                    });
                     return q.promise;
                 },
                 checkUpdate:function(appName){
