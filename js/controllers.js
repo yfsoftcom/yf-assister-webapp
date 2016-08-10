@@ -27,9 +27,10 @@ angular.module('app.controllers', ['app.services','JPush'])
             CommonService.openWebView(url);
         }
     }])
-    .controller('DashboardCtrl',['$scope','DashboardService',function($scope,DashboardService){
+    .controller('DashboardCtrl',['$scope','$ionicPopup','$ionicLoading','DashboardService',function($scope,$ionicPopup,$ionicLoading,DashboardService){
 
         $scope.doRefresh = function(){
+          $ionicLoading.show({template: '客官别急,小的正在拼命加载数据...'});
             DashboardService.getData(1)
                 .then(function(data){
                     console.log(data);
@@ -39,9 +40,57 @@ angular.module('app.controllers', ['app.services','JPush'])
                 })
                 .finally(function(){
                     $scope.$broadcast('scroll.refreshComplete');
+                    $ionicLoading.hide();
                 });
         };
 
+        $scope.showDetail = function(d){
+          if(d === undefined){
+            return;
+          }
+          d = d[0];
+          // 一个提示对话框
+          var str = '';
+          for(var i in d.datas){
+            var _d = d.datas[i];
+            str += '<div class="row">';
+            str += '<div class="col"><b>' + _d.title + '</b></div>';
+            str += '<div class="col">' + _d.val + '</div>';
+            str += '</div>';
+          }
+          //
+          $ionicPopup.alert({
+               title: d.title,
+               template: str
+            });
+
+        }
+
+
+    }])
+    .controller('MonthProtalCtrl',['$scope','$ionicPopup','$ionicLoading','DashboardService',function($scope,$ionicPopup,$ionicLoading,DashboardService){
+
+      //月报控制器
+      $scope.doRefresh = function(){
+        $ionicLoading.show({template: '客官别急,小的正在拼命加载数据...'});
+          DashboardService.getMonthData(1,7)
+              .then(function(data){
+                  console.log(data);
+                  $scope.datas = data;
+              }).catch(function(err){
+                  console.log(err);
+              })
+              .finally(function(){
+                  $scope.$broadcast('scroll.refreshComplete');
+                  $ionicLoading.hide();
+              });
+      };
+      $scope.more = function(){
+        $ionicPopup.alert({
+             title: '啊喔',
+             template: '<p>Sorry啦~这里还不能点~</p>'
+          });
+      };
 
     }])
     .controller('AppsCtrl',['$scope','CommonService','AppService',function($scope,CommonService,AppService){
@@ -89,7 +138,7 @@ angular.module('app.controllers', ['app.services','JPush'])
     }])
     .controller('SettingCtrl',['$scope','CommonService',function($scope,CommonService){
         $scope.checkUpdate = function(){
-            CommonService.checkUpdate('AssisterApp')
+            CommonService.checkUpdate('果然助理')
                 .then(function(){
                     alert('已是最新版~无需更新');
                 })
@@ -98,7 +147,7 @@ angular.module('app.controllers', ['app.services','JPush'])
                     if(!confirm('有更新版本,是否前往下载?'))
                         return false;
                     //前往下载
-                    CommonService.openWebView(e.download);
+                    CommonService.openWebView(e.download,'_system');
                 });
 
 

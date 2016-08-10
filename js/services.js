@@ -12,20 +12,29 @@ angular.module('app.services', ['ngApi','ngCordova'])
                     q.reject(err);
                 });
                 return q.promise;
+            },
+            getMonthData:function(uid,month){
+              var q = $q.defer();
+              var func = new $ae.Function('api.assister.month');
+              func.invoke({month:month,uid:uid}).then(function(datas){
+                  q.resolve(datas);
+              }).catch(function(err){
+                  q.reject(err);
+              });
+              return q.promise;
             }
         }
 }])
     .service('AppService', ['$ae','$q',function($ae,$q){
-        var datas = [
-            {
-                title:'采购端',
-                url:'http://erp.guoran100.com/index.php?s=/caigou/index/index.html'
-            }
-        ];
         return {
             getApps:function(uid){
                 var q = $q.defer();
-                q.resolve(datas);
+                var func = new $ae.Function('api.assister.apps');
+                func.invoke({}).then(function(datas){
+                    q.resolve(datas);
+                }).catch(function(err){
+                    q.reject(err);
+                });
                 return q.promise;
             }
         }
@@ -98,8 +107,7 @@ angular.module('app.services', ['ngApi','ngCordova'])
             return {
                 ready:function(){
                     var q = $q.defer();
-                    //$ae.init({mode:'PRODUCT',appkey:'45883198abcdc110',masterKey:'1b7e5703602b6fce1cae7364ac0f2249'});
-                    $ae.init({mode:'DEV',appkey:'609388a15b3dfaca',masterKey:'1292b2d414d45c8f97d44354de24c40c'});
+                    $ae.init(CONST_APP_KEYS);
                     q.resolve();
                     return q.promise;
                 },
@@ -118,44 +126,16 @@ angular.module('app.services', ['ngApi','ngCordova'])
                             q.reject(e);
                         });
                     };
-                    if('iOS' == platform){
-                        $cordovaAppVersion.getVersionCode().then(checkCallback);
-                    }else{
-                        $cordovaAppVersion.getVersionNumber().then(checkCallback);
-                    }
+                    $cordovaAppVersion.getVersionCode().then(checkCallback);
 
                     return q.promise;
 
                 },
-                openWebView:function(url){
+                openWebView:function(url,target){
                     //非手机环境
-                    cordova.ThemeableBrowser.open(url, '_blank', {
-                        toolbar: {
-                            height: 44,
-                            color: '#eeeeee'
-                        },
-                        title: {
-                            color: '#000000',
-                            showPageTitle: true
-                        },
-                        backButton: {
-                            wwwImage:'img/back-128.png',
-                            wwwImageDensity:2,
-                            imagePressed: 'back_pressed',
-                            align: 'left',
-                            event: 'backPressed'
-                        },
-                        closeButton: {
-                            wwwImage:'img/close-128.png',
-                            wwwImageDensity:2,
-                            imagePressed: 'close_pressed',
-                            align: 'right',
-                            event: 'closePressed'
-                        },
-                        backButtonCanClose: true
-                    });
+                    target = target || CONST_BROWSER_TARGET;
+                    cordova.ThemeableBrowser.open(url, target, CONST_BROWSER_OPTIONS);
                 },
             };
         }])
 ;
-
