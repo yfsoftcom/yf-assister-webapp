@@ -9,7 +9,6 @@ angular.module('app.controllers', ['app.services','JPush'])
             $jPush.setAlias('mmm');
             document.addEventListener("jpush.setAlias", function(event){
                 alert(event.alias);
-                alert(2222);
                 console.log("===============");
                 console.log("===============");
                 console.log(event.alias);
@@ -19,7 +18,6 @@ angular.module('app.controllers', ['app.services','JPush'])
                 console.log("===============");
                 console.log("===============");
             }, false);
-            alert(456);
             document.addEventListener("jpush.openNotification", notificationCallback, false);
         });
 
@@ -108,9 +106,10 @@ angular.module('app.controllers', ['app.services','JPush'])
     .controller('PlusCtrl',['$scope',function($scope){
 
     }])
-    .controller('SubscribeCtrl',['$scope','SubscribeService',function($scope,SubscribeService){
+    .controller('SubscribeCtrl',['$scope','$ionicLoading','SubscribeService',function($scope,$ionicLoading,SubscribeService){
         $scope.subcriptions = [] ;
         $scope.doRefresh = function(){
+          $ionicLoading.show({template: '客官别急,小的正在拼命加载数据...'});
             SubscribeService.getSubscriptions(1)
                 .then(function(datas){
                     console.log(datas);
@@ -118,6 +117,7 @@ angular.module('app.controllers', ['app.services','JPush'])
                 })
                 .finally(function(){
                     $scope.$broadcast('scroll.refreshComplete');
+                    $ionicLoading.hide();
                 });
         };
         $scope.subscribe_change = function(id,checked){
