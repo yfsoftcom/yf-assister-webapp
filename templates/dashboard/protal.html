@@ -1,7 +1,4 @@
 <ion-view title="看板" hide-back-button="true" class=" " ng-init="doRefresh()">
-  <ion-nav-buttons side="right">
-      <a class="button button-clear button-positive" href="#/tab/monthProtal">月报</a>
-  </ion-nav-buttons>
     <ion-content padding="true" class="has-header" scrollbar-y="false" overflow-scroll="false">
         <ion-refresher on-refresh="doRefresh()"
                 spinner="ios-small">
@@ -12,10 +9,8 @@
                     <h2 class="col">{{data.title}} </h2>
                     <p class="col col-75 note">更新于:{{(data.lastUpdateAt * 1000) | date:'yyyy-MM-dd HH:mm:ss'}}</p>
                 </ion-item>
-
-                <ion-item ng-repeat="d in data.datas" class="" ng-class="{true:'item-icon-right'}[d.details != undefined]" ng-click="showDetail(d.details)">
+                <ion-item ng-repeat="d in data.datas" class="  ">
                 {{d.title}}<span class="item-note">{{d.val}}</span>
-                <i ng-if="d.details != undefined" class="icon ion-ios-arrow-right"></i>
                 </ion-item>
             </div>
         </div>

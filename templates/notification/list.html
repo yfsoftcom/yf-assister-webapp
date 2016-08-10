@@ -6,14 +6,16 @@
         <ion-refresher on-refresh="doRefresh()"
                        spinner="ios-small">
         </ion-refresher>
-        <div class="list card margin-top-0" ng-repeat="data in datas" ng-click="open(data.url)">
+        <div class="list card margin-top-0">
             <ion-item class="item-divider row">
-                <h2 class="col">{{data.channel}}</h2>
-                <p class="col note">{{data.publishAt | date:'MM-dd HH:mm'}}</p>
+                <h2 class="col">果然100销售日报</h2>
+                <p class="col note">10分钟前</p>
             </ion-item>
+
             <div class="item item-body">
-                <p>{{data.content}}</p>
+                <p>进度完成62%!</p>
             </div>
+
         </div>
     </ion-content>
 </ion-view>
