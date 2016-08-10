@@ -64,7 +64,6 @@ angular.module('app.services', ['ngApi','ngCordova'])
 
         return {
             getMessages : function(uid){
-                console.log(uid);
                 var q = $q.defer();
                 var func = new $ae.Function('api.assister.getMessages');
                 func.invoke({uid:uid}).then(function(datas){
@@ -72,6 +71,7 @@ angular.module('app.services', ['ngApi','ngCordova'])
                 }).catch(function(err){
                     q.reject(err);
                 });
+
                 return q.promise;
 
             }
