@@ -33,7 +33,7 @@ angular.module('JPush', []).service('$jPush',[ function() {
             if (push) {
                 plugins.jPushPlugin.init();
                 plugins.jPushPlugin.setDebugMode(false);
-                //plugins.jPushPlugin.openNotificationInAndroidCallback = notificationCallback;
+                plugins.jPushPlugin.openNotificationInAndroidCallback = notificationCallback;
                 //plugins.jPushPlugin.openNotificationIniOSCallback = notificationCallback;
                 //document.addEventListener("jpush.openNotification", onOpenNotification, false);
             }
