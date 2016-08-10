@@ -41,7 +41,7 @@ angular.module('app.services', ['ngApi','ngCordova'])
     }])
     .service('NotificationService',['$q','$ae',function($q,$ae){
 
-        var datas = [
+        var datas1 = [
             {
                 channel:'果然100销售',
                 publishAt:1446215421,
@@ -65,47 +65,45 @@ angular.module('app.services', ['ngApi','ngCordova'])
         return {
             getMessages : function(uid){
                 var q = $q.defer();
-                q.resolve(datas);
+                var func = new $ae.Function('api.assister.getMessages');
+                func.invoke({uid:uid}).then(function(datas){
+                    q.resolve(datas);
+                }).catch(function(err){
+                    q.reject(err);
+                });
+
                 return q.promise;
 
             }
         }
     }])
+    .service('SubscribeService',['$q','$ae',function($q,$ae){
+        return {
+            getSubscriptions : function(uid){
+                var q = $q.defer();
+                var func = new $ae.Function('api.assister.getSubscriptions');
+                func.invoke({uid:uid}).then(function(datas){
+                    q.resolve(datas);
+                }).catch(function(err){
+                    q.reject(err);
+                });
+                return q.promise;
+
+            },
+            updateUserSubcriptions:function(uid,subscribe){
+                var q = $q.defer();
+                var func = new $ae.Function('api.assister.updateUserSubscriptions');
+                func.invoke({uid:uid,subscribe:subscribe}).then(function(datas){
+                    q.resolve(datas);
+                }).catch(function(err){
+                    q.reject(err);
+                });
+                return q.promise;
+            }
+        }
+    }])
     .service('CommonService',['$q','$ae','$cordovaDevice','$cordovaAppVersion',
         function($q,$ae,$cordovaDevice,$cordovaAppVersion){
-
-          /******************* CONST VAR DEFINED ****************************/
-          var CONST_BROWSER_OPTIONS = {
-              toolbar: {
-                  height: 44,
-                  color: '#eeeeee'
-              },
-              title: {
-                  color: '#000000',
-                  showPageTitle: true
-              },
-              backButton: {
-                  wwwImage:'img/back-128.png',
-                  wwwImageDensity:2,
-                  imagePressed: 'back_pressed',
-                  align: 'left',
-                  event: 'backPressed'
-              },
-              closeButton: {
-                  wwwImage:'img/close-128.png',
-                  wwwImageDensity:2,
-                  imagePressed: 'close_pressed',
-                  align: 'right',
-                  event: 'closePressed'
-              },
-              backButtonCanClose: true
-          };
-          var CONST_BROWSER_TARGET = '_blank';
-
-          var CONST_APP_KEYS = {mode:'PRODUCT',appkey:'45883198abcdc110',masterKey:'1b7e5703602b6fce1cae7364ac0f2249'};//product
-
-          /******************* VAR DEFINED ****************************/
-
             return {
                 ready:function(){
                     var q = $q.defer();

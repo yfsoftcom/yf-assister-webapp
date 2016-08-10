@@ -9,7 +9,7 @@
         <div class="list card margin-top-0" ng-repeat="data in datas" ng-click="open(data.url)">
             <ion-item class="item-divider row">
                 <h2 class="col">{{data.channel}}</h2>
-                <p class="col note">{{data.publishAt | date:'MM-dd HH:mm'}}</p>
+                <p class="col note">{{data.publishAt*1000 | date:'MM-dd HH:mm'}}</p>
             </ion-item>
             <div class="item item-body">
                 <p>{{data.content}}</p>
