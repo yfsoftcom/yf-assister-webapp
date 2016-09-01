@@ -1,42 +1,48 @@
 "use strict";
 angular.module('JPush', []).service('$jPush',[function() {
-    var push;
-    return {
-        setBadge: function(badge) {
-            if (push) {
-                plugins.jPushPlugin.setBadge(badge);
-            }
-        },
-        setAlias: function(alias) {
-            if (push) {
-                plugins.jPushPlugin.setAlias(alias);
-            }
-        },
-        setTags:function(tags){
-            if(push){
-                plugins.jPushPlugin.setTags(tags);
-            }
-        },
-        setTagsWithAlias:function(tags,alias){
-            if(push){
-                plugins.jPushPlugin.setTagsWithAlias(tags,alias);
-            }
-        },
-        check: function() {
-            if (window.jpush && push) {
-                plugins.jPushPlugin.receiveNotificationIniOSCallback(window.jpush);
-                window.jpush = null;
-            }
-        },
-        init: function(notificationCallback) {
-            push = window.plugins && window.plugins.jPushPlugin;
-            if (push) {
-                plugins.jPushPlugin.init();
-                plugins.jPushPlugin.setDebugMode(true);
-                plugins.jPushPlugin.openNotificationInAndroidCallback = notificationCallback;
-                //plugins.jPushPlugin.openNotificationIniOSCallback = notificationCallback;
-                //document.addEventListener("jpush.openNotification", onOpenNotification, false);
-            }
-        }
+
+    var _service = {};
+
+    _service.getRegistrationID = function(){
+      _service.push.getRegistrationID(function(data) {
+          try {
+            alert(data);
+          } catch (exception) {
+            alert(exception);
+          }
+      });
     };
+
+
+    _service.init = function(){
+      if(!window.plugins){
+        console.log('Plugins Init Error~');
+        return false;
+      };
+      if(!_service.push){
+        _service.push = window.plugins.jPushPlugin;
+      }
+      try {
+          _service.push.init();
+          _service.getRegistrationID();
+          if (device.platform != "Android") {
+              _service.push.setDebugModeFromIos();
+              _service.push.setApplicationIconBadgeNumber(0);
+          } else {
+              _service.push.setDebugMode(true);
+              _service.push.setStatisticsOpen(true);
+          }
+          return true;
+      } catch (exception) {
+        alert(exception);
+      }
+      return false;
+    };
+
+    _service.setTagsWithAlias = function(tags,alias){
+      _service.push.setTagsWithAlias(tags, alias);
+    }
+
+
+    return _service;
 }]);

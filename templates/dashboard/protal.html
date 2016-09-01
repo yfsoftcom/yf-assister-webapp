@@ -6,7 +6,7 @@
         <ion-refresher on-refresh="doRefresh()"
                 spinner="ios-small">
         </ion-refresher>
-        <div class="list card manual-card-fullwidth margin-top-0">
+        <div class="list card manual-card-fullwidth margin-top-0" ng-if="datas && datas.length>0">
             <div ng-repeat="data in datas">
                 <ion-item class="item-divider row">
                     <h2 class="col">{{data.title}} </h2>
@@ -18,6 +18,11 @@
                 <i ng-if="d.details != undefined" class="icon ion-ios-arrow-right"></i>
                 </ion-item>
             </div>
+        </div>
+        <div class="card" ng-if="!(datas && datas.length>0)">
+          <div class="item item-text-wrap">
+            没有数据可以显示~可能是当月指标还没有设置哦!
+          </div>
         </div>
     </ion-content>
 </ion-view>
