@@ -57,10 +57,23 @@ angular.module('app.controllers', ['app.services','JPush'])
     }])
     .controller('MonthProtalCtrl',['$scope','$ionicPopup','$ionicLoading','DashboardService',function($scope,$ionicPopup,$ionicLoading,DashboardService){
 
+      function getLastMonthDate (){
+        var nowDate = new Date();
+        var nowMonth = nowDate.getMonth();
+        if(nowMonth === 0){
+          //当前为1月，需要返回去年的时间
+          return new Date(nowDate.getFullYear() - 1 ,11);
+        }else{
+          return new Date(nowDate.getFullYear(),nowMonth - 1);
+        }
+      };
       //月报控制器
       $scope.doRefresh = function(){
         $ionicLoading.show({template: '客官别急,小的正在拼命加载数据...'});
-          DashboardService.getMonthData(1,7)
+          var lastMonth = getLastMonthDate();
+          $scope.year = lastMonth.getFullYear();
+          $scope.month = lastMonth.getMonth();
+          DashboardService.getMonthData(1 , $scope.month , $scope.year);
               .then(function(data){
                   console.log(data);
                   $scope.datas = data;
