@@ -6,7 +6,7 @@ angular.module('JPush', []).service('$jPush',[function() {
     _service.getRegistrationID = function(){
       _service.push.getRegistrationID(function(data) {
           try {
-            alert(data);
+            //alert(data);
           } catch (exception) {
             alert(exception);
           }
