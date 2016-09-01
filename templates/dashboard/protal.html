@@ -19,8 +19,10 @@
                 </ion-item>
             </div>
         </div>
-        <div ng-if="!(datas && datas.length>0)">
-          没有数据哦，可能是还没有设置好当月的指标~
+        <div class="card" ng-if="!(datas && datas.length>0)">
+          <div class="item item-text-wrap">
+            没有数据可以显示~可能是当月指标还没有设置哦!
+          </div>
         </div>
     </ion-content>
 </ion-view>

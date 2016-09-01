@@ -15,6 +15,10 @@ angular.module('JPush', []).service('$jPush',[function() {
 
 
     _service.init = function(){
+      if(!window.plugins){
+        console.log('Plugins Init Error~');
+        return false;
+      };
       if(!_service.push){
         _service.push = window.plugins.jPushPlugin;
       }
@@ -28,10 +32,11 @@ angular.module('JPush', []).service('$jPush',[function() {
               _service.push.setDebugMode(true);
               _service.push.setStatisticsOpen(true);
           }
+          return true;
       } catch (exception) {
         alert(exception);
       }
-
+      return false;
     };
 
     _service.setTagsWithAlias = function(tags,alias){
